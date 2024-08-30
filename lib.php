@@ -45,10 +45,14 @@
 * @param navigation_node $frontpage Nodo que representa la página principal en el árbol de navegación.
 */
 function local_greetings_extend_navigation_frontpage(navigation_node $frontpage) {
-    $frontpage->add(
-        get_string('pluginname', 'local_greetings'),
-        new moodle_url('/local/greetings/index.php')
-    );
+    global $USER;
+    // Verificar si el usuario ha iniciado sesión y no es un usuario invitado.
+    if (isloggedin() && !isguestuser()) {
+        $frontpage->add(
+            get_string('pluginname', 'local_greetings'),
+            new moodle_url('/local/greetings/index.php')
+        );
+    }
 }
 
 
